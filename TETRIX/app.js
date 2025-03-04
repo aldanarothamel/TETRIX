@@ -8,11 +8,11 @@ document.addEventListener('DOMContentLoaded', () => {
   let timerId
   let score = 0
   const colors = [
-    'royalblue',
-    'darkcyan',
-    'white',
-    'black',
-    'grey'
+    '#ff4500',   // Orange Red
+    '#ff8c00',   // Dark Orange
+    '#32cd32',   // Lime Green
+    '#8b0000',   // Dark Red
+    '#ffa07a'    // Light Salmon
   ]
   const lTetromino = [
     [1, width+1, width*2+1, 2],
@@ -54,8 +54,6 @@ document.addEventListener('DOMContentLoaded', () => {
   let currentPosition = 4
   let currentRotation = 0
 
-  console.log(theTetrominoes[0][0])
-
   let random = Math.floor(Math.random()*theTetrominoes.length)
   let current = theTetrominoes[random][currentRotation]
 
@@ -70,7 +68,6 @@ document.addEventListener('DOMContentLoaded', () => {
     current.forEach(index => {
       squares[currentPosition + index].classList.remove('tetromino')
       squares[currentPosition + index].style.backgroundColor = ''
-
     })
   }
 
@@ -223,8 +220,10 @@ document.addEventListener('DOMContentLoaded', () => {
 
   function gameOver() {
     if(current.some(index => squares[currentPosition + index].classList.contains('taken'))) {
-      scoreDisplay.innerHTML = 'end'
+      scoreDisplay.innerHTML = ` GAME OVER! Final score: ${score}`
       clearInterval(timerId)
+      // Disable further control input
+      document.removeEventListener('keyup', control)
     }
   }
 
